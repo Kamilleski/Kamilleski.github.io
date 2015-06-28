@@ -1,0 +1,67 @@
+body {
+  font-family: arial;
+  background-color: #FFD18A;
+  color: #00494B;
+}
+
+h1 {
+ font-size: 40px;
+ color: #00494B;
+}
+
+h2 {
+  font-size: 25px; 
+  color: #D36934
+}
+
+h3 {
+  font-size: 25px
+  color: #C87F45;
+}
+
+h5 {
+  color: #FFFFFF;
+}
+
+hr {
+  color: #00494B;
+}
+
+input[type="text"], textarea {
+  background-color : #FFFFFF; 
+}
+
+fieldset {
+  background-color : #FFDCA5;
+  border-color: #00494B;
+  width: 400px;
+  margin: 10px auto 10px auto;
+}
+
+label {
+  background-color: #FFDCA5;
+  color: #00494B;
+}
+a {
+  color: #00494B;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+legend {
+  background-color: #FFDCA5;
+  color: #00494B;
+  margin: 10px auto 10px auto;
+}
+
+img {
+  width: 250px;
+  height: 250px;
+}
+
+input {
+  font-size: 15px;
+  margin: 2px;
+}
