@@ -1,19 +1,24 @@
 /**This file does a number of tasks, the most important being to get the single 
  * number I needed from the BART API (estimated time of departure) and use it 
  * to produce a string telling me both what that etd is and which drinks I have 
- * time to get, if any.  First I define all of the possible sassy string outputs,
- * then I get into the meat of parsing the API data.
+ * time to get, if any.  
+ * First I create a drink constructor from which I can get names and nutrients.
+ * Then I define all of the possible sassy string outputs using the new objects.
+ * Then I get into the meat of parsing the API data, eventually outputting a 
+ * string that includes the single magical etd number from BART.
  */
   
 //object constructor for each drink's nutrients
 function DrinkNutrients(calories, fat, sugar, protein) {
-  this.calories = calories;
-  this.fat = fat;
-  this.sugar = sugar;
-  this.protein = protein;
+  this.calories = 'calories';
+  this.fat = 'fat';
+  this.sugar = 'sugar';
+  this.protein = 'protein';
 }
 
-//putting drink nutrient objects into the drinks object (all large/whole milk)
+/**putting drink nutrient objects into the drinks object (all size large/ with 
+ *whole milk) (obv),
+ */
 var drinks = {};
 drinks['a coffee (hot or iced)'] = new DrinkNutrients(10, 0, 0, 0);
 drinks['a cafe au lait'] = new DrinkNutrients(85, 4, 6, 4);
@@ -23,22 +28,22 @@ drinks['a pumpkin spice latte'] = new DrinkNutrients(375, 13, 51, 13);
 
 //getting drink key names from object and pushing them into array for later use
 for (var key in drinks) {
-  var coffeeDranks = [];
+  var drinksArray = [];
   if (drinks.hasOwnProperty(key)) {
     var drinkKeyNames = Object.keys(drinks);
     for(var i in drinkKeyNames) {
-      coffeeDranks.push(drinkKeyNames[i]);
+      drinksArray.push(drinkKeyNames[i]);
     }
   }
 }
 
-/**creating a string with the list of what drinks you could get based on the 
- * times they take to create which I know from experience
+/**defining a function creating a string with the list of what drinks you could
+ * get based on the times they take to create (which I know from experience)
  */
 function drankList(arr, mins) {
-  function drankString() {
-      var stringy = arr.join(', or ');
-      return 'you have time to grab ' + stringy + '!';
+  function drinkAnnouncement() {
+      var conjunction = arr.join(', or ');
+      return 'you have time to grab ' + conjunction + '!';
   }
   
   if (mins <= 3) {
@@ -47,7 +52,7 @@ function drankList(arr, mins) {
   }
   
   else if (mins >= 7) {
-    return 'YES, ' + drankString();
+    return 'YES, ' + drinkAnnouncement();
   }
   
   else {
@@ -56,7 +61,7 @@ function drankList(arr, mins) {
     }
     
     return 'Sadly you don\'t have time for a pumpkin spice latte today, but ' + 
-      drankString();
+      drinkAnnouncement();
   }
 }
 
@@ -88,8 +93,8 @@ xhr.onreadystatechange = function() {
         mins = parseInt(mins);
         departTimes.push(mins);
       }
-      
-      else if (abbr === 'RICH') {
+      //TODO removed "else if" -- see if that helps the departTimes array issue
+      if (abbr === 'RICH') {
         mins = etd[i].getElementsByTagName('minutes')[0].childNodes[0].nodeValue;
         mins = parseInt(mins);
         departTimes.push(mins);
@@ -105,13 +110,13 @@ xhr.onreadystatechange = function() {
           negativeMessage = ' You couldn\'t make the next train even if you' + 
             ' ran, so take your time!';
           mins = departTimes[1];
-          document.getElementById('runTime').innerHTML= drankList(coffeeDranks, 
+          document.getElementById('runTime').innerHTML= drankList(drinksArray, 
             mins) + negativeMessage + ' The next viable train is leaving in ' + 
             mins + ' minutes.';
         }
         
         else {
-          document.getElementById('runTime').innerHTML= drankList(coffeeDranks, 
+          document.getElementById('runTime').innerHTML= drankList(drinksArray, 
             mins) + ' The next train is leaving in ' + mins + ' minutes.';
         }
       } 
