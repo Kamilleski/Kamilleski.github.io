@@ -2,6 +2,9 @@ body {
   font-family: arial;
   background-color: #FFD18A;
   color: #00494B;
+  margin: 5px;
+  padding: 25px;
+  border: 15px solid #006B6E;
 }
 
 h1 {
@@ -28,7 +31,9 @@ h4 {
 }
 
 hr {
-  color: #00494B;
+  border: none;
+  background-color: #FFDCA5;
+  height: 2px;
 }
 
 input[type="text"], textarea {
@@ -37,7 +42,7 @@ input[type="text"], textarea {
 
 fieldset {
   background-color : #FFDCA5;
-  border-color: #00494B;
+  border: 5px solid #006B6E;
   width: 400px;
   margin: 10px auto 10px auto;
 }
